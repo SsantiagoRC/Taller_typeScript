@@ -3,7 +3,7 @@ import {Curso} from './curso.js';
 
 let cursos=[new Curso("Practicas escenciales para el agilismo",20,90,true,2019)
 ,new Curso("Ingenieria de Software para la web",25,80,true,2019)
-,new Curso("Principios de diseño y arquitectura",20,90,true,2029)]
+,new Curso("Principios de diseño y arquitectura",20,50,true,2029)]
 
 
 export const ap = new Aprendiz("Juan","Perez","avatar.png",30, NivelEducativo.POSTGRADO,cursos)
@@ -47,15 +47,20 @@ function mostrarEstadisticas(aprendiz:Aprendiz):void{
 function mostrarCursos(cursos:Curso[]):void{
     
     let cursosTbody:HTMLElement = document.createElement("tbody")
+    let index:number=0;
+    let estado: string[] =cursos.map(c=>c.calificacion>60?'green':'red')
     for (let curso of cursos)
     {
+        
         let trElement : HTMLElement = document.createElement("tr")
+        
         trElement.innerHTML=`<td>${curso.nombre}</td>
         <td>${curso.horas}</td>
-        <td>${curso.calificacion}</td>
+        <td style="color:${estado[index]}">${curso.calificacion}</td>
         <td>${curso.certificado}</td>
         <td>${curso.anio}</td>`
         cursosTbody.appendChild(trElement)
+        index++
     }
     cursosTable.appendChild(cursosTbody)
 }

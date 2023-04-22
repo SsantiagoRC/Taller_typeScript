@@ -2,7 +2,7 @@ import { Aprendiz, NivelEducativo } from './aprendiz.js';
 import { Curso } from './curso.js';
 var cursos = [new Curso("Practicas escenciales para el agilismo", 20, 90, true, 2019),
     new Curso("Ingenieria de Software para la web", 25, 80, true, 2019),
-    new Curso("Principios de diseño y arquitectura", 20, 90, true, 2029)];
+    new Curso("Principios de diseño y arquitectura", 20, 50, true, 2029)];
 export var ap = new Aprendiz("Juan", "Perez", "avatar.png", 30, NivelEducativo.POSTGRADO, cursos);
 console.log(ap.cursos);
 var aprendizTable = document.getElementById("aprendiz");
@@ -33,11 +33,14 @@ function mostrarEstadisticas(aprendiz) {
 }
 function mostrarCursos(cursos) {
     var cursosTbody = document.createElement("tbody");
+    var index = 0;
+    var estado = cursos.map(function (c) { return c.calificacion > 60 ? 'green' : 'red'; });
     for (var _i = 0, cursos_1 = cursos; _i < cursos_1.length; _i++) {
         var curso = cursos_1[_i];
         var trElement = document.createElement("tr");
-        trElement.innerHTML = "<td>" + curso.nombre + "</td>\n        <td>" + curso.horas + "</td>\n        <td>" + curso.calificacion + "</td>\n        <td>" + curso.certificado + "</td>\n        <td>" + curso.anio + "</td>";
+        trElement.innerHTML = "<td>" + curso.nombre + "</td>\n        <td>" + curso.horas + "</td>\n        <td style=\"color:" + estado[index] + "\">" + curso.calificacion + "</td>\n        <td>" + curso.certificado + "</td>\n        <td>" + curso.anio + "</td>";
         cursosTbody.appendChild(trElement);
+        index++;
     }
     cursosTable.appendChild(cursosTbody);
 }
